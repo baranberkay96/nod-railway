@@ -11,7 +11,7 @@ Upstream self-hosting runs Nod with Docker Compose: the server reaches a workspa
 - A personal assistant that chases invoices, prepares calls and cancels trials on real websites, asking before it acts
 - Research that reads web pages, PDFs and spreadsheets and writes the results to files
 - Running code and command-line tools in a private Linux workspace instead of on your laptop
-- Scheduled tasks and reminders through the web app, Telegram or WhatsApp
+- Scheduled tasks and reminders through the web app or Telegram
 
 ## Dependencies for Nod Hosting
 
@@ -41,6 +41,8 @@ Upstream self-hosting runs Nod with Docker Compose: the server reaches a workspa
 **Differences from upstream's Docker setup.** Upstream puts a firewall container in front of the workspace that blocks private networks; Railway grants no network administration rights, so the workspace here can reach the internet and the project's private network. The workspace leaves out upstream's video downloader (yt-dlp), which Railway's Fair Use Policy does not allow. The workspace keeps `/workspace` on a volume; tools Nod installs into `/home/node` are installed again after a redeploy.
 
 **Safe defaults.** Secrets are generated at deploy. A `NOD_AUTH_TOKEN` shorter than 43 characters (or with other characters than letters, digits, `_` and `-`) locks Nod with a random token and the log says how to fix it; an invalid `NOD_VAULT_KEY` makes Nod keep its key in a file on the volume. Product analytics to n8n are off (`NOD_ANALYTICS_ENABLED=false`).
+
+**WhatsApp caveat.** Nod can also link a WhatsApp account through an unofficial WhatsApp Web library (Baileys). WhatsApp's terms do not allow unofficial clients and the number can be banned; the template does not set it up, and Telegram or the web app are the safer channels.
 
 **Custom domain.** Add it to the Nod service and set `NOD_PUBLIC_URL` to `https://{your-domain}`. Nod answers only for the host in `NOD_PUBLIC_URL`, which is also why the service has no Railway healthcheck (the checker uses its own host name).
 
