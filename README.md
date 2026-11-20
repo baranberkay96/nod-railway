@@ -1,5 +1,7 @@
 # Deploy and Host Nod with Railway
 
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/nod-personal-ai-agent-with-its-own-compu?referralCode=20H68q)
+
 Nod is n8n's open-source personal AI agent with its own computer: it researches, fills in forms on real websites, works with files and runs code in a Linux workspace, and asks before it acts. This community template runs the Nod server, its workspace and its browser as Railway services, without Docker.
 
 ## About Hosting Nod
