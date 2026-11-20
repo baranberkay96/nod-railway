@@ -26,7 +26,7 @@ COPY --from=rtk /opt/rtk/LICENSE /usr/share/doc/rtk/LICENSE
 COPY --from=source /src/LICENSE /src/NOTICE /usr/share/doc/nod/
 RUN mkdir -p /workspace /home/node/.local/bin && chown -R node:node /workspace /home/node
 RUN groupadd --gid 1002 nod-connected && useradd --uid 1002 --gid 1002 --create-home --shell /usr/sbin/nologin nod-connected && chmod 700 /home/nod-connected
-COPY --chmod=0644 nod-relay.mjs /opt/nod-relay/relay.mjs
+COPY --chmod=0755 nod-relay.mjs /opt/nod-relay/relay.mjs
 COPY --chmod=0755 workspace-start.sh /usr/local/bin/workspace-start
 ENV LANG=C.UTF-8
 ENV NPM_CONFIG_PREFIX=/home/node/.local

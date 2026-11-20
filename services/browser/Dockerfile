@@ -34,6 +34,6 @@ RUN printf '%s\n' '#!/bin/sh' 'exec /usr/bin/chromium --disable-dev-shm-usage "$
 COPY --from=source --chmod=555 /src/src/providers/container-browser/xvfb.sh /usr/local/bin/Xvfb
 COPY --from=source /src/LICENSE /src/NOTICE /usr/share/doc/nod/
 RUN mkdir /data && chown node:node /data && chmod 700 /data
-COPY --chmod=0644 nod-relay.mjs /opt/nod-relay/relay.mjs
+COPY --chmod=0755 nod-relay.mjs /opt/nod-relay/relay.mjs
 COPY --chmod=0755 browser-start.sh /usr/local/bin/browser-start
 CMD ["/usr/local/bin/browser-start"]
