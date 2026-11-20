@@ -3,6 +3,7 @@
 // users, folders and commands upstream's runtime proxy allows (deployment/self-host/docker-proxy.mjs).
 // Runs as root so it can start each command as the user Nod asks for, as `docker exec --user` does.
 import { spawn } from 'node:child_process';
+import { chownSync, existsSync, mkdirSync } from 'node:fs';
 import { createHash, timingSafeEqual } from 'node:crypto';
 import net from 'node:net';
 
@@ -80,6 +81,16 @@ const server = net.createServer((socket) => {
     if (request.role !== role) return refuse('Runtime operation refused.');
     const run = allowed(request);
     if (!run) return refuse('Runtime operation refused.');
+    // Upstream's server creates each thread's folder on a volume it shares with the workspace; here
+    // the workspace has its own volume, so the folder is made on first use, as the server would.
+    if (role === 'workspace' && run.cwd.startsWith('/workspace/') && !existsSync(run.cwd)) {
+      try {
+        mkdirSync(run.cwd, { mode: 0o700 });
+        chownSync(run.cwd, 1000, 1000);
+      } catch (error) {
+        return refuse(`Cannot create ${run.cwd}: ${error.code || error.message}`);
+      }
+    }
     try {
       child = spawn(request.command[0], request.command.slice(1), {
         cwd: run.cwd,
