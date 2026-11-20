@@ -34,6 +34,7 @@ Improvements here: built from upstream's own pinned commit (fetched by SHA), unm
 | Nod | `n8n-io/nod` commit `6cebbf1a448eba950d97e907bef8435e3a4e8b33` (tag nod-v0.9.0, 2026-11-19) | 2026-11-20 |
 | Node.js base | `node:24.21.0-bookworm-slim@sha256:d6aa754f…7b20` (as upstream) | 2026-11-20 |
 | rtk | 0.51.0 release build, SHA-256 in upstream's `install-rtk.sh` | 2026-11-20 |
+| Image sizes | estimates from Debian package sizes: workspace ~0.6 GB, browser ~0.5 GB, server ~0.3 GB compressed; under the 4 GB cap | 2026-11-20 |
 | Postgres | `ghcr.io/railwayapp-templates/postgres-ssl:17.11@sha256:5e806d28…463e` | 2026-11-20 |
 
 ## Services and variables

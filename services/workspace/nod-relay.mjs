@@ -127,7 +127,10 @@ const server = net.createServer((socket) => {
     };
     if (rest.length) onInput(rest);
     socket.on('data', onInput);
+    const started = Date.now();
     child.on('close', (code, signal) => {
+      // One line per command (user, program and result; never its arguments or data).
+      log(`exec as ${request.user} ${request.command[0]} -> ${signal || code} in ${((Date.now() - started) / 1000).toFixed(1)}s`);
       if (finished) return;
       finished = true;
       const exit = Buffer.alloc(4);
